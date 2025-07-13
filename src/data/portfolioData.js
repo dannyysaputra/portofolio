@@ -1,3 +1,5 @@
+import { desc } from "framer-motion/client";
+
 const portfolioData = {
   name: "Danny Suggi Saputra",
   email: "dannysaputra3003@gmail.com",
@@ -129,9 +131,9 @@ const portfolioData = {
       description:
         "An AI-powered system using YOLO object detection to identify food ingredients from an image and recommend recipes.",
       tags: ["Python", "YOLO", "PyTorch", "Flask", "Docker", "AWS"],
-      image: "https://placehold.co/600x400/1e293b/94a3b8?text=Kasep+Project",
-      live: "#",
-      repo: "#",
+      image: "../../public/projek_kasep.png",
+      live: "https://kasep-app.gagas.me/",
+      repo: "https://github.com/orgs/kasep-capstone/repositories",
       category: "ml",
     },
     {
@@ -139,10 +141,9 @@ const portfolioData = {
       description:
         "A comparative time series analysis using Moving Average (MA) and LSTM models to forecast stock prices.",
       tags: ["Python", "TensorFlow", "Keras", "Statsmodels"],
-      image:
-        "https://placehold.co/600x400/1e293b/94a3b8?text=Stock+Forecasting",
+      image: "../../public/projek_forecast.png",
       live: "#",
-      repo: "#",
+      repo: "https://github.com/dannyysaputra/stock-price-forecasting",
       category: "ml",
     },
     {
@@ -152,7 +153,7 @@ const portfolioData = {
       tags: ["Python", "Scikit-learn", "Implicit", "Cosine Similarity"],
       image: "https://placehold.co/600x400/1e293b/94a3b8?text=Spotify+RecSys",
       live: "#",
-      repo: "#",
+      repo: "https://github.com/dannyysaputra/spotify-recommendation-system",
       category: "ml",
     },
     {
@@ -207,6 +208,13 @@ const portfolioData = {
         "Developed a capstone project with YOLO-based image classification and a content-based recipe recommendation system. Mastered the end-to-end data project workflow.",
     },
     {
+      role: "Software Engineer",
+      company: "PT. Dwi Medisoft Indonesia",
+      period: "Oct 2024 - Mar 2025",
+      description:
+        "In a project-based role, I developed a Hospital Management Information System (SIMRS) using Vue.js and Laravel. I successfully integrated laboratory equipment with the web-based laboratory management application, enhancing its core functionality."
+    },
+    {
       role: "Full-Stack Web Javascript",
       company: "SYNRGY Academy",
       period: "Mar 2024 - Sep 2024",
@@ -214,11 +222,25 @@ const portfolioData = {
         "Developed full-stack web apps using React and Express, improving development efficiency by 30%. Built an accessible digital banking project, increasing user engagement by 25%.",
     },
     {
-      role: "Back End Developer",
+      role: "Mentee Studi Independen HCAI",
+      company: "Infinite Learning",
+      period: "Aug 2023 - Jan 2024",
+      description:
+        "As a corporate partner in the Kampus Merdeka (MSIB) program, Infinite Learning offers a unique opportunity to gain advanced IT knowledge and the RHCSA certification. This initiative equips participants with essential technical skills while fostering professional connections for future career development.",
+    },
+    {
+      role: "Back End Developer Intern",
       company: "myECO Indonesia",
       period: "Aug 2023 - Dec 2023",
       description:
         "Engineered and optimized APIs using Node.js and MongoDB, enhancing system performance by 30%. Implemented MQTT protocol, reducing communication latency by 25%.",
+    },
+    {
+      role: "System Analyst Intern",
+      company: "PT. Bisa Artifisial Indonesia",
+      period: "Dec 2020 - Jul 2021",
+      description:
+        "Drove a 30% increase in project efficiency and a 25% reduction in user complaints through comprehensive research and strategic UI/UX design. Collaborated closely with developer teams to build and launch applications, enhancing overall functionality and user satisfaction by 40%.",
     },
   ],
   awards: [
