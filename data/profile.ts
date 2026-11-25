@@ -9,6 +9,12 @@ export const profile = {
   location: "Bandung, Indonesia",
   siteUrl: "https://portofolio-danny.vercel.app",
   profileImageUrl: "/IMG_9498.jpg",
+  ogImage: {
+    url: "/og-image.png",
+    width: 1200,
+    height: 630,
+    alt: "Danny Suggi Saputra: turn hours of manual work into systems that run on their own.",
+  },
   positioning:
     "I help businesses replace manual work with AI automation and reliable backend systems, delivered fast using an agentic AI workflow.",
   headline: "Turn hours of manual work into systems that run on their own.",

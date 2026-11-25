@@ -58,27 +58,34 @@ export default function HeroVisual() {
   const [ready, setReady] = useState(false);
   const [inView, setInView] = useState(false);
 
-  // Decide and schedule loading after first paint: wait for window load, then idle time.
+  // Load the scene only after first paint AND the visitor's first interaction
+  // (pointer, touch, scroll, key), then wait for idle time. Visitors who never
+  // interact never pay for the 3D chunk; the static poster stays in place.
   useEffect(() => {
     if (reducedMotion) return;
     let cancelled = false;
     let idleId: number | undefined;
     let timeoutId: ReturnType<typeof setTimeout> | undefined;
+    const triggers = ["pointermove", "pointerdown", "touchstart", "wheel", "scroll", "keydown"] as const;
 
-    const start = () => {
-      const run = () => {
-        if (!cancelled && canRender3D()) setLoad(true);
-      };
-      if ("requestIdleCallback" in window) idleId = window.requestIdleCallback(run, { timeout: 2500 });
-      else timeoutId = setTimeout(run, 1200);
+    const run = () => {
+      if (!cancelled && canRender3D()) setLoad(true);
     };
-
-    if (document.readyState === "complete") start();
-    else window.addEventListener("load", start, { once: true });
+    const scheduleIdle = () => {
+      if ("requestIdleCallback" in window) idleId = window.requestIdleCallback(run, { timeout: 1500 });
+      else timeoutId = setTimeout(run, 300);
+    };
+    const onFirstInteraction = () => {
+      triggers.forEach((t) => window.removeEventListener(t, onFirstInteraction));
+      if (document.readyState === "complete") scheduleIdle();
+      else window.addEventListener("load", scheduleIdle, { once: true });
+    };
+    triggers.forEach((t) => window.addEventListener(t, onFirstInteraction, { passive: true, once: true }));
 
     return () => {
       cancelled = true;
-      window.removeEventListener("load", start);
+      triggers.forEach((t) => window.removeEventListener(t, onFirstInteraction));
+      window.removeEventListener("load", scheduleIdle);
       if (idleId !== undefined) window.cancelIdleCallback(idleId);
       if (timeoutId !== undefined) clearTimeout(timeoutId);
     };

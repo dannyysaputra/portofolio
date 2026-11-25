@@ -76,7 +76,7 @@ export const processSteps: ProcessStep[] = [
   },
   {
     title: "Handover & support",
-    body: "Documentation, access to everything, and a support period after launch, so nothing is left hanging.",
+    body: "Documentation, access to everything, and an agreed support period after launch, so nothing is left hanging.",
   },
 ];
 
@@ -94,7 +94,7 @@ export const faqs: FaqItem[] = [
   {
     question: "How long does a project take?",
     answer:
-      "It depends on scope. A focused automation is usually a matter of weeks; a full MVP takes longer. After the discovery call you get a specific timeline in the proposal, broken into weekly milestones.",
+      "It depends on scope. After the discovery call you get a specific timeline in the proposal, broken into weekly milestones.",
   },
   {
     question: "How do you price your work?",
@@ -109,11 +109,11 @@ export const faqs: FaqItem[] = [
   {
     question: "What happens after launch?",
     answer:
-      "You get the code, documentation, and all access. I include a support period to fix issues and help your team settle in, and I'm available for ongoing improvements if you need them.",
+      "You get the code, documentation, and all access. The support period after launch is agreed in the proposal, and I'm available for ongoing improvements if you need them.",
   },
   {
     question: "Can you work with our existing codebase?",
     answer:
-      "Yes. Most of my work is inside existing systems. I start by reading the code and mapping how it works, then make changes in small, reviewed steps so nothing that already works breaks.",
+      "Yes. I start by reading the code and mapping how it works, then make changes in small, reviewed steps so nothing that already works breaks.",
   },
 ];

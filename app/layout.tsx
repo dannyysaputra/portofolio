@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import PageContainer from "@/components/layout/PageContainer";
+import ClickTracker from "@/components/analytics/ClickTracker";
 import { profile } from "@/data/profile";
 
 const serif = Instrument_Serif({
@@ -39,12 +40,13 @@ export const metadata: Metadata = {
     siteName: profile.name,
     type: "website",
     locale: "en_US",
-    images: ["/IMG_9498.jpg"],
+    images: [profile.ogImage],
   },
   twitter: {
     card: "summary_large_image",
     title: siteTitle,
     description: profile.positioning,
+    images: [profile.ogImage.url],
   },
 };
 
@@ -82,6 +84,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <PageContainer>{children}</PageContainer>
+        <ClickTracker />
       </body>
     </html>
   );

@@ -20,12 +20,16 @@ export function CopyEmailButton({ email }: { email: string }) {
     <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
       <a
         href={`mailto:${email}`}
+        data-track="email_click"
+        data-track-location="final_cta"
         className="inline-flex min-h-11 items-center rounded-[var(--radius-control)] border border-line-strong px-5 text-[0.9375rem] font-medium text-fg transition-colors duration-200 hover:bg-surface-2"
       >
         {email}
       </a>
       <button
         type="button"
+        data-track="email_copy"
+        data-track-location="final_cta"
         onClick={copyToClipboard}
         className="inline-flex min-h-11 items-center gap-2 px-2 text-[0.9375rem] text-muted transition-colors hover:text-fg"
       >

@@ -1,7 +1,7 @@
 import { profile } from "@/data/profile";
 
 const links = [
-  { href: `mailto:${profile.email}`, label: "Email", external: false },
+  { href: `mailto:${profile.email}`, label: "Email", external: false, track: "email_click" },
   { href: profile.linkedin, label: "LinkedIn", external: true },
   { href: profile.github, label: "GitHub", external: true },
 ];
@@ -22,7 +22,8 @@ export default function Footer() {
               <a
                 href={l.href}
                 {...(l.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                className="inline-flex min-h-11 items-center text-muted transition-colors hover:text-fg"
+                {...("track" in l ? { "data-track": l.track, "data-track-location": "footer" } : {})}
+                className="inline-flex min-h-11 min-w-11 items-center justify-center text-muted transition-colors hover:text-fg"
               >
                 {l.label}
               </a>

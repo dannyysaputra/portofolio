@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { MessageCircle, Plus } from "lucide-react";
 import { whatsappHref } from "@/data/contact";
+import { profile } from "@/data/profile";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import Tag from "@/components/ui/Tag";
@@ -23,7 +24,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     title,
     description: project.summary,
     alternates: { canonical: `/projects/${project.slug}` },
-    openGraph: { title, description: project.summary, type: "article", url: `/projects/${project.slug}` },
+    openGraph: {
+      title,
+      description: project.summary,
+      type: "article",
+      url: `/projects/${project.slug}`,
+      images: [profile.ogImage],
+    },
   };
 }
 
@@ -145,7 +152,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
               Need something like this?
             </h2>
             <div>
-              <Button href={whatsappHref} external>
+              <Button href={whatsappHref} external data-track="whatsapp_click" data-track-location="case_study">
                 <MessageCircle className="h-4 w-4" aria-hidden="true" /> Chat on WhatsApp
               </Button>
             </div>

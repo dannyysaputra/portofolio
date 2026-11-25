@@ -6,7 +6,7 @@ import Tag from "@/components/ui/Tag";
 
 export default function ProjectHero({ project }: { project: Project }) {
   const facts = [
-    { label: "Client", value: project.context },
+    { label: "Context", value: project.context },
     { label: "Role", value: project.role },
     { label: "Year", value: project.year },
     { label: "Team", value: project.teamType },

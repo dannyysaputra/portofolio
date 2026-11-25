@@ -17,7 +17,7 @@ export default function Hero() {
           </h1>
           <p className="measure text-lg text-muted">{profile.subheadline}</p>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-4 pt-2">
-            <Button href={whatsappHref} external>
+            <Button href={whatsappHref} external data-track="whatsapp_click" data-track-location="hero">
               <MessageCircle className="h-4 w-4" aria-hidden="true" /> Chat on WhatsApp
             </Button>
             <Button href="#work" variant="secondary">

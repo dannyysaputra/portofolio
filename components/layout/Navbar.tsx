@@ -29,7 +29,7 @@ export default function Navbar() {
             </ul>
           </nav>
           <div className="hidden sm:block">
-            <Button href={whatsappHref} external>
+            <Button href={whatsappHref} external data-track="whatsapp_click" data-track-location="nav">
               Chat on WhatsApp
             </Button>
           </div>

@@ -19,7 +19,7 @@ export default function FinalCta() {
             Tell me what&apos;s slowing your team down. I&apos;ll reply with a clear next step.
           </p>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-4">
-            <Button href={whatsappHref} external>
+            <Button href={whatsappHref} external data-track="whatsapp_click" data-track-location="final_cta">
               <MessageCircle className="h-4 w-4" aria-hidden="true" /> Chat on WhatsApp
             </Button>
             <CopyEmailButton email={profile.email} />
