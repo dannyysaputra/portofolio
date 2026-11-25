@@ -1,5 +1,13 @@
 import Link from "next/link";
 import { ThemeToggle } from "../ui/ThemeToggle";
+import { whatsappHref } from "@/data/contact";
+
+const links = [
+  { href: "/#services", label: "Services" },
+  { href: "/#work", label: "Work" },
+  { href: "/#process", label: "Process" },
+  { href: "/#faq", label: "FAQ" },
+];
 
 export default function Navbar() {
   return (
@@ -9,20 +17,17 @@ export default function Navbar() {
           Danny<span className="text-[var(--color-accent)]">.</span>
         </Link>
         <div className="flex items-center gap-6">
-          <nav className="flex gap-6 text-sm font-medium text-[var(--color-muted)]">
-            <Link href="/#projects" className="hover:text-[var(--color-foreground)] transition-colors">
-              Work
-            </Link>
-            <Link href="/#experience" className="hover:text-[var(--color-foreground)] transition-colors hidden sm:block">
-              Experience
-            </Link>
-            <Link href="/#contact" className="hover:text-[var(--color-foreground)] transition-colors">
-              Contact
-            </Link>
+          <nav aria-label="Main" className="hidden md:flex gap-6 text-sm font-medium text-[var(--color-muted)]">
+            {links.map((l) => (
+              <Link key={l.href} href={l.href}>
+                {l.label}
+              </Link>
+            ))}
           </nav>
-          <div className="pl-6 border-l border-[var(--color-border)] ml-0">
-            <ThemeToggle />
-          </div>
+          <a href={whatsappHref} target="_blank" rel="noreferrer" className="text-sm font-medium text-[var(--color-accent)]">
+            Chat on WhatsApp
+          </a>
+          <ThemeToggle />
         </div>
       </div>
     </header>

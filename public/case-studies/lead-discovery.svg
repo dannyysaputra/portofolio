@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-label="Lead discovery pipeline">
+<rect width="1600" height="900" fill="#0f0e0c"/>
+<text x="110" y="110" fill="#9c958a" font-size="22" letter-spacing="3" font-family="ui-monospace, monospace">LEAD DISCOVERY PIPELINE</text>
+<g>
+  <rect x="110" y="264" width="380" height="120" rx="14" fill="#191815" stroke="#3a3731" stroke-width="2"/>
+  <text x="138" y="318" fill="#ece6da" font-size="30" font-family="ui-sans-serif, system-ui, sans-serif">Company sources</text>
+  <text x="138" y="354" fill="#9c958a" font-size="20" font-family="ui-monospace, monospace">public web</text>
+</g><path d="M490 324 C 550 324, 550 480, 610 480" fill="none" stroke="#3a3731" stroke-width="2"/>
+<circle cx="610" cy="480" r="5" fill="#ff5b1f"/><g>
+  <rect x="110" y="420" width="380" height="120" rx="14" fill="#191815" stroke="#3a3731" stroke-width="2"/>
+  <text x="138" y="474" fill="#ece6da" font-size="30" font-family="ui-sans-serif, system-ui, sans-serif">Company websites</text>
+  <text x="138" y="510" fill="#9c958a" font-size="20" font-family="ui-monospace, monospace">fetch + extract</text>
+</g><path d="M490 480 C 550 480, 550 480, 610 480" fill="none" stroke="#3a3731" stroke-width="2"/>
+<circle cx="610" cy="480" r="5" fill="#ff5b1f"/><g>
+  <rect x="110" y="576" width="380" height="120" rx="14" fill="#191815" stroke="#3a3731" stroke-width="2"/>
+  <text x="138" y="630" fill="#ece6da" font-size="30" font-family="ui-sans-serif, system-ui, sans-serif">Target criteria</text>
+  <text x="138" y="666" fill="#9c958a" font-size="20" font-family="ui-monospace, monospace">what a fit looks like</text>
+</g><path d="M490 636 C 550 636, 550 480, 610 480" fill="none" stroke="#3a3731" stroke-width="2"/>
+<circle cx="610" cy="480" r="5" fill="#ff5b1f"/><g>
+  <rect x="610" y="400" width="380" height="160" rx="14" fill="#191815" stroke="#ff5b1f" stroke-width="2"/>
+  <text x="638" y="474" fill="#ece6da" font-size="30" font-family="ui-sans-serif, system-ui, sans-serif">Research workflow</text>
+  <text x="638" y="510" fill="#9c958a" font-size="20" font-family="ui-monospace, monospace">n8n + Python + LLM</text>
+</g><path d="M990 480 C 1050 480, 1050 480, 1110 480" fill="none" stroke="#3a3731" stroke-width="2"/>
+<circle cx="1110" cy="480" r="5" fill="#ff5b1f"/><g>
+  <rect x="1110" y="420" width="380" height="120" rx="14" fill="#191815" stroke="#3a3731" stroke-width="2"/>
+  <text x="1138" y="474" fill="#ece6da" font-size="30" font-family="ui-sans-serif, system-ui, sans-serif">Research briefs</text>
+  <text x="1138" y="510" fill="#9c958a" font-size="20" font-family="ui-monospace, monospace">ready for review</text>
+</g><text x="1490" y="840" text-anchor="end" fill="#9c958a" font-size="18" font-family="ui-monospace, monospace">DIAGRAM</text>
+</svg>

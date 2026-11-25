@@ -8,57 +8,49 @@ interface ProjectCardProps {
 }
 
 export default function ProjectCard({ project }: ProjectCardProps) {
+  const rows = [
+    { label: "Problem", text: project.card.problem },
+    { label: "Solution", text: project.card.solution },
+    { label: "Result", text: project.card.result },
+  ];
+
   return (
-    <div className="group relative grid grid-cols-1 md:grid-cols-12 gap-8 items-start border-t border-[var(--color-border)] py-12">
-      <div className="md:col-span-5 flex flex-col gap-4">
-        <div className="relative aspect-video mb-4 overflow-hidden rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)]">
-          {project.imageUrl ? (
-            <Image 
-              src={project.imageUrl} 
-              alt={project.title}
-              fill
-              className="object-cover group-hover:scale-105 transition-transform duration-500"
-            />
-          ) : (
-            <div className="flex items-center justify-center h-full text-[var(--color-muted)] mono text-xs uppercase">
-              Visual Case Study
-            </div>
-          )}
+    <article className="group relative grid grid-cols-1 md:grid-cols-12 gap-8 items-start border-t border-[var(--color-border)] py-12">
+      <div className="md:col-span-5">
+        <div className="relative aspect-video overflow-hidden rounded-lg border border-[var(--color-border)]">
+          <Image
+            src={project.imageUrl}
+            alt={project.imageAlt}
+            fill
+            sizes="(min-width: 768px) 40vw, 100vw"
+            unoptimized={project.imageUrl.endsWith(".svg")}
+            className="object-cover"
+          />
         </div>
-        <h3 className="text-2xl font-semibold leading-tight group-hover:text-[var(--color-accent)] transition-colors">
-          <Link href={`/projects/${project.slug}`} className="focus:outline-none">
-            <span className="absolute inset-0 z-10" aria-hidden="true" />
+      </div>
+      <div className="md:col-span-7 flex flex-col gap-4">
+        <p className="mono text-xs uppercase text-[var(--color-muted)]">
+          {project.category} · {project.context}
+        </p>
+        <h3 className="text-2xl font-semibold">
+          <Link href={`/projects/${project.slug}`}>
+            <span className="absolute inset-0" aria-hidden="true" />
             {project.title}
           </Link>
         </h3>
-        <div className="flex flex-wrap gap-2">
-          {project.stack.slice(0, 3).map((tech) => (
-            <span key={tech} className="mono text-xs px-2 py-1 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-sm text-[var(--color-muted)]">
-              {tech}
-            </span>
+        <p className="text-xl font-semibold text-[var(--color-accent)]">{project.resultHeadline}</p>
+        <dl className="flex flex-col gap-3">
+          {rows.map((row) => (
+            <div key={row.label} className="grid grid-cols-[6rem_1fr] gap-4">
+              <dt className="mono text-xs uppercase text-[var(--color-muted)] pt-1">{row.label}</dt>
+              <dd>{row.text}</dd>
+            </div>
           ))}
-        </div>
-        <p className="text-[var(--color-muted)] leading-relaxed mt-2">
-          {project.summary}
-        </p>
+        </dl>
+        <span className="inline-flex items-center gap-1 text-sm font-medium">
+          Read the case study <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+        </span>
       </div>
-
-      <div className="md:col-span-7 flex flex-col gap-6 md:pl-8 md:pt-4">
-        <div className="bg-[var(--color-accent-subtle)] border border-[var(--color-border)] p-6 rounded-lg text-[var(--color-foreground)] flex items-center justify-between">
-          <div className="flex flex-col">
-            <span className="mono text-xs text-[var(--color-muted)] uppercase tracking-wider mb-1">Key Outcome</span>
-            <span className="font-semibold text-lg">{project.outcomeChip}</span>
-          </div>
-          <ArrowUpRight className="h-6 w-6 text-[var(--color-muted)] group-hover:text-[var(--color-accent)] transition-colors" />
-        </div>
-        
-        <div>
-          <span className="mono text-xs text-[var(--color-muted)] uppercase tracking-wider block mb-2">Architecture Hint</span>
-          <p className="text-sm leading-relaxed text-[var(--color-foreground)]">
-            {project.architectureImplementation.substring(0, 200)}...
-          </p>
-        </div>
-      </div>
-    </div>
+    </article>
   );
 }
