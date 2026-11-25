@@ -1,6 +1,7 @@
 import { projects } from "@/data/projects";
 import ProjectCard from "@/components/ui/ProjectCard";
 import Section from "@/components/ui/Section";
+import Tilt from "@/components/ui/Tilt";
 
 export default function CaseStudies() {
   return (
@@ -14,7 +15,9 @@ export default function CaseStudies() {
       <ul className="flex flex-col gap-6">
         {projects.map((project) => (
           <li key={project.slug}>
-            <ProjectCard project={project} />
+            <Tilt>
+              <ProjectCard project={project} />
+            </Tilt>
           </li>
         ))}
       </ul>

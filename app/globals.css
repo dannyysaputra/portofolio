@@ -124,4 +124,63 @@
   .measure {
     max-width: 65ch;
   }
+
+  /* Pointer tilt (components/ui/Tilt.tsx). Transform only: no layout shift. */
+  .tilt {
+    transform: perspective(1100px) rotateX(var(--tilt-rx, 0deg)) rotateY(var(--tilt-ry, 0deg));
+    transition: transform 400ms cubic-bezier(0.2, 0.7, 0.2, 1);
+    will-change: transform;
+  }
+}
+
+/*
+ * Lightweight 3D motion, CSS only. Scroll-driven animations run where
+ * `animation-timeline: view()` is supported; elsewhere content is simply
+ * shown. Everything is off under prefers-reduced-motion.
+ */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes depth-in {
+  from {
+    opacity: 0;
+    transform: perspective(500px) translateZ(-140px) rotateX(28deg);
+  }
+  to {
+    opacity: 1;
+    transform: perspective(500px) translateZ(0) rotateX(0deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    [data-reveal] {
+      animation: reveal-up linear both;
+      animation-timeline: view();
+      /* Length-based range so tall blocks reveal as quickly as short ones. */
+      animation-range: cover 0px cover 280px;
+    }
+
+    .depth-reveal {
+      transform-origin: 50% 100%;
+      animation: depth-in linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 30%;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tilt {
+    transform: none !important;
+    transition: none;
+  }
 }

@@ -79,4 +79,13 @@ Rule: sections compose these; no one-off colors, radii, or font declarations ins
 - Semantic headings: one `h1` per page, one `h2` per section, `h3` inside.
 - All images through `next/image` with meaningful `alt`; decorative art is `aria-hidden`.
 - Tap targets >= 44 x 44px.
-- Motion respects `prefers-reduced-motion` (Phase 3).
+- Motion respects `prefers-reduced-motion`.
+
+## Motion and 3D
+
+- **Hero scene** (`components/hero/`): scattered blocks assemble into a pipeline (input queue, lead node, worker nodes) as the scene scrolls from 55% to 30% of the viewport height. Accent appears only on the pulses. Idle: slow drift plus pointer parallax (desktop only).
+- Loading: the static poster (`HeroPoster`) is server-rendered; the scene chunk loads after `window.load` and idle time, then cross-fades in. Headline and CTAs are HTML, never in the canvas.
+- Fallbacks: reduced motion, no WebGL, `saveData`, <= 2 CPU cores or <= 2 GB device memory show the poster only. Small or touch screens get the lite scene (fewer blocks, no parallax).
+- Rendering pauses when the canvas is offscreen or the tab is hidden. DPR capped at 1.5. Instanced meshes, no post-processing.
+- Budget: 3D chunk < ~200 kB gzipped, homepage only. Only the three.js classes in use are registered (`extend`), not the whole namespace.
+- CSS-only touches: pointer tilt on case study cards (mouse only, max 4 deg), depth reveal on stat numbers, scroll reveals on sections (`animation-timeline: view()`, shown immediately where unsupported). All transform/opacity only, all off under reduced motion.

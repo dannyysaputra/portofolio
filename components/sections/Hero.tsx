@@ -2,7 +2,7 @@ import { ArrowDown, MessageCircle } from "lucide-react";
 import { profile } from "@/data/profile";
 import { whatsappHref } from "@/data/contact";
 import Button from "@/components/ui/Button";
-import HeroPoster from "./HeroPoster";
+import HeroVisual from "@/components/hero/HeroVisual";
 
 export default function Hero() {
   return (
@@ -30,9 +30,7 @@ export default function Hero() {
           </p>
         </div>
         <div className="md:col-span-5">
-          <div className="relative mx-auto aspect-square w-full max-w-[28rem]">
-            <HeroPoster className="h-full w-full" />
-          </div>
+          <HeroVisual />
         </div>
       </div>
     </section>

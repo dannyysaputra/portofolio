@@ -15,7 +15,7 @@ export default function Section({ id, index, eyebrow, title, intro, children, cl
   return (
     <section id={id} aria-labelledby={headingId} className={`scroll-mt-20 border-t border-line py-18 md:py-28 ${className}`}>
       <div className="container-page">
-        <header className="grid gap-6 md:grid-cols-12 md:gap-8">
+        <header data-reveal className="grid gap-6 md:grid-cols-12 md:gap-8">
           <p className="type-label text-subtle md:col-span-3 md:pt-3">
             <span className="text-fg">{index}</span> / {eyebrow}
           </p>
@@ -26,7 +26,9 @@ export default function Section({ id, index, eyebrow, title, intro, children, cl
             {intro && <p className="measure text-muted">{intro}</p>}
           </div>
         </header>
-        <div className="mt-12 md:mt-16">{children}</div>
+        <div data-reveal className="mt-12 md:mt-16">
+          {children}
+        </div>
       </div>
     </section>
   );
