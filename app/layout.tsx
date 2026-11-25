@@ -1,18 +1,24 @@
-import type { Metadata } from "next";
-import { Inter, Roboto_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import PageContainer from "@/components/layout/PageContainer";
 import { profile } from "@/data/profile";
-import { ThemeProvider } from "@/components/providers/ThemeProvider";
 
-const inter = Inter({
-  variable: "--font-inter",
+const serif = Instrument_Serif({
+  variable: "--font-instrument-serif",
+  subsets: ["latin"],
+  weight: "400",
+  display: "swap",
+});
+
+const sans = Geist({
+  variable: "--font-geist",
   subsets: ["latin"],
   display: "swap",
 });
 
-const robotoMono = Roboto_Mono({
-  variable: "--font-roboto-mono",
+const mono = Geist_Mono({
+  variable: "--font-geist-mono",
   subsets: ["latin"],
   display: "swap",
 });
@@ -42,6 +48,11 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  themeColor: "#0e0d0b",
+  colorScheme: "dark",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -53,31 +64,24 @@ export default function RootLayout({
     "name": profile.name,
     "jobTitle": profile.role,
     "url": profile.siteUrl,
-    "sameAs": [
-      profile.github,
-      profile.linkedin
-    ],
+    "sameAs": [profile.github, profile.linkedin],
     "description": profile.positioning,
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Bandung",
       "addressRegion": "West Java",
-      "addressCountry": "Indonesia"
-    }
+      "addressCountry": "Indonesia",
+    },
   };
 
   return (
-    <html lang="en" className={`${inter.variable} ${robotoMono.variable} scroll-smooth`} suppressHydrationWarning>
-      <body className="antialiased">
+    <html lang="en" className={`${serif.variable} ${sans.variable} ${mono.variable}`}>
+      <body>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <ThemeProvider>
-          <PageContainer>
-            {children}
-          </PageContainer>
-        </ThemeProvider>
+        <PageContainer>{children}</PageContainer>
       </body>
     </html>
   );

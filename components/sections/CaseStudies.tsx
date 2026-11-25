@@ -1,18 +1,23 @@
 import { projects } from "@/data/projects";
 import ProjectCard from "@/components/ui/ProjectCard";
+import Section from "@/components/ui/Section";
 
 export default function CaseStudies() {
   return (
-    <section id="work" className="flex flex-col gap-10">
-      <div className="flex flex-col gap-2">
-        <h2 className="heading-section mb-0">Results for real teams</h2>
-        <p className="subheading max-w-2xl">Each project: the problem, what I built, and what changed.</p>
-      </div>
-      <div className="flex flex-col">
+    <Section
+      id="work"
+      index="02"
+      eyebrow="Case studies"
+      title="Results, not just code"
+      intro="Each project in three parts: the problem, what I built, and what changed. The technical details are there if you want them."
+    >
+      <ul className="flex flex-col gap-6">
         {projects.map((project) => (
-          <ProjectCard key={project.slug} project={project} />
+          <li key={project.slug}>
+            <ProjectCard project={project} />
+          </li>
         ))}
-      </div>
-    </section>
+      </ul>
+    </Section>
   );
 }

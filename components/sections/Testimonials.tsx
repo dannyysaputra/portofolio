@@ -1,19 +1,20 @@
 import { testimonials } from "@/data/testimonials";
+import Card from "@/components/ui/Card";
 
 export default function Testimonials() {
   if (testimonials.length === 0) return null;
 
   return (
-    <div className="flex flex-col gap-6">
-      <h3 className="text-xl font-semibold">What clients say</h3>
-      <div className="grid md:grid-cols-2 gap-6">
+    <div className="mt-16 flex flex-col gap-6">
+      <h3 className="type-label text-subtle">What clients say</h3>
+      <div className="grid gap-6 md:grid-cols-2">
         {testimonials.map((t) => (
-          <figure key={`${t.name}-${t.company}`} className="flex flex-col gap-4 border border-[var(--color-border)] rounded-xl p-6">
-            <blockquote>“{t.quote}”</blockquote>
-            <figcaption className="text-sm text-[var(--color-muted)]">
+          <Card as="figure" key={`${t.name}-${t.company}`} className="flex flex-col gap-6">
+            <blockquote className="font-serif text-2xl leading-snug">&ldquo;{t.quote}&rdquo;</blockquote>
+            <figcaption className="type-small text-muted">
               {t.name}, {t.role} at {t.company}
             </figcaption>
-          </figure>
+          </Card>
         ))}
       </div>
     </div>

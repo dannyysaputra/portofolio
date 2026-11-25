@@ -1,37 +1,38 @@
-import { ArrowRight, MessageCircle } from "lucide-react";
+import { ArrowDown, MessageCircle } from "lucide-react";
 import { profile } from "@/data/profile";
 import { whatsappHref } from "@/data/contact";
+import Button from "@/components/ui/Button";
+import HeroPoster from "./HeroPoster";
 
 export default function Hero() {
   return (
-    <section id="top" className="pt-20 md:pt-32 pb-12">
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
-        <div className="md:col-span-7 flex flex-col gap-6">
-          <p className="mono text-sm uppercase tracking-wide text-[var(--color-accent)]">
-            {profile.name} · {profile.role}
+    <section id="top" aria-labelledby="hero-title" className="pb-18 pt-12 md:pb-28 md:pt-20">
+      <div className="container-page grid items-center gap-12 md:grid-cols-12 md:gap-8">
+        <div className="flex flex-col gap-7 md:col-span-7">
+          <p className="type-label text-subtle">
+            {profile.name} <span aria-hidden="true">/</span> {profile.role}
           </p>
-          <h1 className="heading-hero max-w-3xl">{profile.headline}</h1>
-          <p className="subheading max-w-2xl">{profile.subheadline}</p>
-          <div className="flex flex-wrap items-center gap-4 mt-2">
-            <a
-              href={whatsappHref}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 bg-[var(--color-accent)] text-white px-6 py-3 rounded-md font-medium"
-            >
+          <h1 id="hero-title" className="type-display">
+            {profile.headline}
+          </h1>
+          <p className="measure text-lg text-muted">{profile.subheadline}</p>
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-4 pt-2">
+            <Button href={whatsappHref} external>
               <MessageCircle className="h-4 w-4" aria-hidden="true" /> Chat on WhatsApp
-            </a>
-            <a
-              href="#work"
-              className="inline-flex items-center gap-2 border border-[var(--color-border)] px-6 py-3 rounded-md font-medium"
-            >
-              See results <ArrowRight className="h-4 w-4" aria-hidden="true" />
-            </a>
+            </Button>
+            <Button href="#work" variant="secondary">
+              See results <ArrowDown className="h-4 w-4" aria-hidden="true" />
+            </Button>
           </div>
-          <p className="text-sm text-[var(--color-muted)]">{profile.availability}</p>
+          <p className="type-small flex items-center gap-2 text-muted">
+            <span className="inline-block h-1.5 w-1.5 rounded-full bg-fg" aria-hidden="true" />
+            {profile.availability}
+          </p>
         </div>
-        <div className="md:col-span-5" aria-hidden="true">
-          <div className="aspect-square w-full rounded-2xl border border-dashed border-[var(--color-border)]" />
+        <div className="md:col-span-5">
+          <div className="relative mx-auto aspect-square w-full max-w-[28rem]">
+            <HeroPoster className="h-full w-full" />
+          </div>
         </div>
       </div>
     </section>

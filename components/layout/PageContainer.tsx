@@ -2,15 +2,17 @@ import { ReactNode } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 
-interface PageContainerProps {
-  children: ReactNode;
-}
-
-export default function PageContainer({ children }: PageContainerProps) {
+export default function PageContainer({ children }: { children: ReactNode }) {
   return (
-    <div className="min-h-screen flex flex-col font-sans">
+    <div className="flex min-h-screen flex-col">
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-[var(--radius-control)] focus:bg-accent focus:px-4 focus:py-2 focus:text-accent-fg"
+      >
+        Skip to content
+      </a>
       <Navbar />
-      <main className="flex-1 w-full mx-auto max-w-5xl px-6">
+      <main id="main" className="flex-1">
         {children}
       </main>
       <Footer />

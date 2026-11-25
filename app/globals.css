@@ -1,123 +1,127 @@
 @import "tailwindcss";
 
+/* Design tokens. See DESIGN.md before adding or changing anything here. */
 @theme {
-  --color-background: var(--background);
-  --color-surface: var(--surface);
-  --color-foreground: var(--foreground);
-  --color-muted: var(--muted);
-  --color-accent: var(--accent);
-  --color-accent-subtle: var(--accent-subtle);
-  --color-border: var(--border);
-  --color-card-bg: var(--card-bg);
+  --color-bg: #0e0d0b;
+  --color-surface: #171512;
+  --color-surface-2: #1f1d19;
+  --color-line: #2e2b26;
+  --color-line-strong: #4a453d;
+  --color-fg: #ece6da;
+  --color-muted: #a59e91;
+  --color-subtle: #8a8378;
+  --color-accent: #ff5b1f;
+  --color-accent-hover: #ff7240;
+  --color-accent-fg: #0e0d0b;
 
-  /* Typography */
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-mono: var(--font-roboto-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-serif: var(--font-instrument-serif), ui-serif, Georgia, serif;
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --radius-tag: 2px;
+  --radius-control: 6px;
+  --radius-card: 10px;
 }
 
-:root {
-  --background: #f8f9fa;
-  --surface: #ffffff;
-  --card-bg: #ffffff;
-  --foreground: #1a1a1a;
-  --muted: #6c757d;
-  --accent: #0062ff;
-  --accent-subtle: #f0f4ff;
-  --border: #e9ecef;
-  --grid-color: rgba(0, 98, 255, 0.03);
-}
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
 
-.dark {
-  --background: #0d0e12;
-  --surface: #16181d;
-  --card-bg: #1a1d23;
-  --foreground: #f8f9fa;
-  --muted: #adb5bd;
-  --accent: #4d89ff;
-  --accent-subtle: #1a2233;
-  --border: #2d323d;
-  --grid-color: rgba(77, 137, 255, 0.05);
-}
+  html {
+    background-color: var(--color-bg);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
 
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-  background-color: var(--background);
-  background-image: 
-    linear-gradient(var(--grid-color) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
-  background-size: 40px 40px;
-  color: var(--foreground);
-  font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  transition: background-color 0.4s ease, color 0.4s ease;
-}
+  body {
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    overflow-x: clip;
+  }
 
-::selection {
-  background-color: var(--accent);
-  color: #fff;
-}
+  ::selection {
+    background-color: var(--color-accent);
+    color: var(--color-accent-fg);
+  }
 
-.mono {
-  font-family: var(--font-mono);
-}
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
 
-/* Glassmorphism for cards and surfaces */
-.glass {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
-}
-
-.dark .glass {
-  box-shadow: 0 4px 25px -5px rgba(0, 0, 0, 0.3);
-}
-
-/* Animated accent gradient */
-.hero-gradient {
-  position: absolute;
-  top: -10%;
-  right: -5%;
-  width: 50%;
-  height: 60%;
-  background: radial-gradient(circle, var(--accent-subtle) 0%, transparent 70%);
-  filter: blur(80px);
-  z-index: -1;
-  opacity: 0.6;
-}
-
-/* Base structural styles */
-section {
-  padding-block: 6rem;
-  position: relative;
-}
-
-@media (max-width: 768px) {
-  section {
-    padding-block: 4rem;
+  summary {
+    list-style: none;
+  }
+  summary::-webkit-details-marker {
+    display: none;
   }
 }
 
-.heading-hero {
-  font-size: clamp(2.5rem, 6vw, 4.5rem);
-  line-height: 1.05;
-  font-weight: 700;
-  letter-spacing: -0.03em;
-}
+@layer components {
+  .container-page {
+    width: 100%;
+    max-width: 72rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 768px) {
+    .container-page {
+      padding-inline: 2rem;
+    }
+  }
 
-.heading-section {
-  font-size: clamp(1.75rem, 4vw, 2.5rem);
-  line-height: 1.2;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  margin-bottom: 2rem;
-}
+  .type-display {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: clamp(2.75rem, 7vw, 5.75rem);
+    line-height: 1;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
 
-.subheading {
-  font-size: clamp(1.15rem, 2vw, 1.4rem);
-  line-height: 1.5;
-  font-weight: 400;
-  color: var(--muted);
+  .type-title {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: clamp(2.25rem, 4.6vw, 3.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.005em;
+    text-wrap: balance;
+  }
+
+  .type-heading {
+    font-size: 1.25rem;
+    line-height: 1.3;
+    font-weight: 500;
+  }
+
+  .type-small {
+    font-size: 0.875rem;
+    line-height: 1.55;
+  }
+
+  .type-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    line-height: 1.4;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .type-number {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: clamp(2.25rem, 4vw, 3rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .measure {
+    max-width: 65ch;
+  }
 }
