@@ -6,7 +6,7 @@ export default function ProofBar() {
     <section aria-label="Results at a glance" className="border-t border-line">
       <div className="container-page">
         {/* Mobile: divide-y. From sm: gap-px over a line-colored background draws the grid hairlines. */}
-        <dl className="grid grid-cols-1 divide-y divide-line sm:grid-cols-2 sm:gap-px sm:divide-y-0 sm:bg-line lg:grid-cols-4">
+        <dl className="grid grid-cols-1 divide-y divide-line sm:grid-cols-3 sm:gap-px sm:divide-y-0 sm:bg-line">
           {proofStats.map((stat) => (
             <Stat
               key={stat.label}

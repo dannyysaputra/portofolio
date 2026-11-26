@@ -7,7 +7,6 @@ export type ProofStat = {
 export const proofStats: ProofStat[] = [
   { value: "80%", label: "less manual content work", context: "Arabicara audio pipeline" },
   { value: "50%", label: "lower system latency", context: "Kafka notification service" },
-  { value: "40%", label: "faster admin workflows", context: "Admin workflow tooling" },
   { value: "Top 100", label: "Google Solution Challenge 2024", context: "Google for Developers" },
 ];
 
