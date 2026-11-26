@@ -1,173 +1,163 @@
 import { projects } from "@/data/projects";
 import ProjectHero from "@/components/case-study/ProjectHero";
 import { notFound } from "next/navigation";
-import { Metadata } from "next";
-import { CheckCircle2, ChevronRight } from "lucide-react";
+import type { Metadata } from "next";
 import Image from "next/image";
-import { ScrollProgress } from "@/components/ui/ScrollProgress";
+import { MessageCircle, Plus } from "lucide-react";
+import { whatsappHref } from "@/data/contact";
+import { profile } from "@/data/profile";
+import Button from "@/components/ui/Button";
+import Card from "@/components/ui/Card";
+import Tag from "@/components/ui/Tag";
 
 export async function generateStaticParams() {
-  return projects.map((project) => ({
-    slug: project.slug,
-  }));
+  return projects.map((project) => ({ slug: project.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
-  const resolvedParams = await params;
-  const project = projects.find((p) => p.slug === resolvedParams.slug);
-  
-  if (!project) {
-    return { title: "Project Not Found" };
-  }
-  
+  const { slug } = await params;
+  const project = projects.find((p) => p.slug === slug);
+  if (!project) return { title: "Case study not found" };
+
+  const title = `${project.title}: ${project.resultHeadline}`;
   return {
-    title: `${project.title} — Case Study`,
+    title,
     description: project.summary,
+    alternates: { canonical: `/projects/${project.slug}` },
+    openGraph: {
+      title,
+      description: project.summary,
+      type: "article",
+      url: `/projects/${project.slug}`,
+      images: [profile.ogImage],
+    },
   };
 }
 
-export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
-  const resolvedParams = await params;
-  const project = projects.find((p) => p.slug === resolvedParams.slug);
+function Block({ id, label, title, children }: { id: string; label: string; title: string; children: React.ReactNode }) {
+  return (
+    <section aria-labelledby={id} className="grid gap-4 border-t border-line py-12 md:grid-cols-12 md:gap-8">
+      <p className="type-label text-subtle md:col-span-3 md:pt-2">{label}</p>
+      <div className="flex flex-col gap-4 md:col-span-9">
+        <h2 id={id} className="type-title">
+          {title}
+        </h2>
+        {children}
+      </div>
+    </section>
+  );
+}
 
-  if (!project) {
-    notFound();
-  }
+function TechList({ title, items }: { title: string; items?: string[] }) {
+  if (!items || items.length === 0) return null;
+  return (
+    <div className="flex flex-col gap-3">
+      <h3 className="type-label text-subtle">{title}</h3>
+      <ul className="flex flex-col gap-2">
+        {items.map((item) => (
+          <li key={item} className="type-small border-l border-line-strong pl-3 text-muted">
+            {item}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const project = projects.find((p) => p.slug === slug);
+  if (!project) notFound();
+
+  const t = project.technical;
 
   return (
-    <article className="flex flex-col gap-16 pb-24">
-      <ScrollProgress />
+    <article className="container-page pb-24">
       <ProjectHero project={project} />
 
-      <div className="grid md:grid-cols-12 gap-12">
-        <div className="md:col-span-8 flex flex-col gap-16">
-          
-          <div className="relative aspect-video w-full overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)]">
-            {project.imageUrl ? (
-              <Image 
-                src={project.imageUrl} 
-                alt={project.title}
-                fill
-                className="object-cover"
-              />
-            ) : (
-              <div className="flex items-center justify-center h-full text-[var(--color-muted)] mono text-sm uppercase">
-                System Visualization
-              </div>
-            )}
-          </div>
+      <div className="relative aspect-[16/9] w-full overflow-hidden rounded-[var(--radius-card)] border border-line bg-bg">
+        <Image
+          src={project.imageUrl}
+          alt={project.imageAlt}
+          fill
+          sizes="(min-width: 1152px) 1088px, 100vw"
+          unoptimized={project.imageUrl.endsWith(".svg")}
+          className={project.imageIsPlaceholder ? "object-cover" : "object-contain bg-white"}
+          priority
+        />
+      </div>
 
-          <section className="flex flex-col gap-4">
-            <h2 className="text-2xl font-semibold text-[var(--color-foreground)] border-b border-[var(--color-border)] pb-4">The Problem</h2>
-            <p className="text-[var(--color-muted)] leading-relaxed">{project.problem}</p>
-            <div className="mt-4 bg-[var(--color-accent-subtle)] p-6 rounded-lg border border-[var(--color-border)]">
-              <h3 className="font-medium text-[var(--color-foreground)] mb-2 flex items-center gap-2">
-                <ChevronRight className="h-4 w-4 text-[var(--color-accent)]" /> Why It Mattered
-              </h3>
-              <p className="text-sm text-[var(--color-muted)] leading-relaxed">{project.whyItMattered}</p>
-            </div>
-          </section>
+      <div className="mt-16">
+        <Block id="problem" label="01 / Problem" title="The problem">
+          <p className="measure text-muted">{project.problem}</p>
+        </Block>
 
-          <section className="flex flex-col gap-4">
-            <h2 className="text-2xl font-semibold text-[var(--color-foreground)] border-b border-[var(--color-border)] pb-4">Solution Overview</h2>
-            <p className="text-[var(--color-muted)] leading-relaxed">{project.solution}</p>
-          </section>
+        <Block id="solution" label="02 / Solution" title="What I built">
+          <p className="measure text-muted">{project.solution}</p>
+        </Block>
 
-          <section className="flex flex-col gap-6">
-            <h2 className="text-2xl font-semibold text-[var(--color-foreground)] border-b border-[var(--color-border)] pb-4">Architecture & Implementation</h2>
-            <div className="prose prose-neutral dark:prose-invert max-w-none">
-              <p className="text-[var(--color-muted)] leading-relaxed">{project.architectureImplementation}</p>
-            </div>
-            
-            <div className="grid md:grid-cols-2 gap-8 mt-6">
-              <div className="flex flex-col gap-4">
-                <h3 className="text-lg font-medium text-[var(--color-foreground)]">Technical Decisions</h3>
-                <ul className="flex flex-col gap-3">
-                  {project.technicalDecisions.map((decision, idx) => (
-                    <li key={idx} className="text-sm text-[var(--color-muted)] flex items-start gap-2">
-                      <span className="w-1.5 h-1.5 bg-[var(--color-accent)] rounded-full shrink-0 mt-1.5"></span>
-                      <span>{decision}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="flex flex-col gap-4">
-                <h3 className="text-lg font-medium text-[var(--color-foreground)]">Trade-offs</h3>
-                <ul className="flex flex-col gap-3">
-                  {project.tradeOffs.map((tradeoff, idx) => (
-                    <li key={idx} className="text-sm text-[var(--color-muted)] flex items-start gap-2">
-                      <span className="w-1.5 h-1.5 bg-[var(--color-border)] rounded-full shrink-0 mt-1.5"></span>
-                      <span>{tradeoff}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </section>
+        <Block id="result" label="03 / Result" title="The result">
+          <ul className="measure flex flex-col gap-3">
+            {project.results.map((r) => (
+              <li key={r} className="border-l-2 border-line-strong pl-4 text-fg">
+                {r}
+              </li>
+            ))}
+          </ul>
+        </Block>
 
-          <section className="flex flex-col gap-4">
-            <h2 className="text-2xl font-semibold text-[var(--color-foreground)] border-b border-[var(--color-border)] pb-4">Impact & Outcomes</h2>
-            <div className="grid sm:grid-cols-2 gap-4">
-              {project.impactOutcomes.map((outcome, idx) => (
-                <div key={idx} className="bg-[var(--color-surface)] border border-[var(--color-border)] p-5 rounded-lg flex items-start gap-3">
-                  <CheckCircle2 className="h-5 w-5 text-[var(--color-accent)] shrink-0" />
-                  <span className="text-sm text-[var(--color-foreground)] leading-relaxed">{outcome}</span>
+        <div className="grid border-t border-line py-12 md:grid-cols-12 md:gap-8">
+          <div className="md:col-span-9 md:col-start-4">
+            <Card as="details" className="group">
+              <summary className="flex min-h-11 cursor-pointer items-center justify-between gap-6 text-lg">
+                Technical details
+                <Plus
+                  className="h-5 w-5 shrink-0 text-subtle transition-transform duration-200 group-open:rotate-45"
+                  aria-hidden="true"
+                />
+              </summary>
+              <div className="mt-8 flex flex-col gap-8">
+                <div className="flex flex-col gap-3">
+                  <h3 className="type-label text-subtle">Stack</h3>
+                  <ul className="flex flex-wrap gap-2">
+                    {t.stack.map((s) => (
+                      <li key={s}>
+                        <Tag>{s}</Tag>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-              ))}
-            </div>
-          </section>
-
-          <section className="flex flex-col gap-6">
-            <div className="bg-[var(--color-surface)] border border-[var(--color-border)] p-8 rounded-xl flex flex-col gap-4">
-              <h2 className="text-xl font-semibold text-[var(--color-foreground)]">Lessons Learned</h2>
-              <p className="text-[var(--color-muted)] leading-relaxed italic border-l-4 border-[var(--color-accent)] pl-4">
-                "{project.lessonsLearned}"
-              </p>
-            </div>
-          </section>
-
+                <div className="flex flex-col gap-3">
+                  <h3 className="type-label text-subtle">How it&apos;s built</h3>
+                  <p className="measure type-small text-muted">{t.howItsBuilt}</p>
+                </div>
+                <TechList title="Key decisions" items={t.decisions} />
+                <TechList title="Trade-offs" items={t.tradeOffs} />
+                {t.lessons && (
+                  <div className="flex flex-col gap-3">
+                    <h3 className="type-label text-subtle">Lesson learned</h3>
+                    <p className="measure type-small text-muted">{t.lessons}</p>
+                  </div>
+                )}
+                <TechList title="What I'd do next" items={t.nextSteps} />
+              </div>
+            </Card>
+          </div>
         </div>
 
-        <aside className="md:col-span-4 flex flex-col gap-8">
-          <div className="sticky top-24 flex flex-col gap-8">
-            <div className="flex flex-col gap-4">
-              <h3 className="mono text-xs text-[var(--color-muted)] uppercase tracking-wider">Tech Stack</h3>
-              <div className="flex flex-wrap gap-2">
-                {project.stack.map((tech) => (
-                  <span key={tech} className="bg-[var(--color-surface)] border border-[var(--color-border)] text-[var(--color-foreground)] text-xs px-3 py-1.5 rounded-full">
-                    {tech}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <div className="flex flex-col gap-4">
-              <h3 className="mono text-xs text-[var(--color-muted)] uppercase tracking-wider">Context & Constraints</h3>
-              <p className="text-sm text-[var(--color-muted)] leading-relaxed">
-                {project.constraints}
-              </p>
-            </div>
-
-            <div className="flex flex-col gap-4">
-              <h3 className="mono text-xs text-[var(--color-muted)] uppercase tracking-wider">My Role</h3>
-              <p className="text-sm text-[var(--color-foreground)] leading-relaxed bg-[var(--color-accent-subtle)] p-4 rounded-md border border-[var(--color-border)]">
-                {project.myRole}
-              </p>
-            </div>
-
-            <div className="flex flex-col gap-4 border-t border-[var(--color-border)] pt-8">
-              <h3 className="mono text-xs text-[var(--color-muted)] uppercase tracking-wider">Future Improvements</h3>
-              <ul className="flex flex-col gap-3">
-                {project.futureImprovements.map((improvement, idx) => (
-                  <li key={idx} className="text-sm text-[var(--color-muted)] flex items-start gap-2">
-                    <span className="text-[var(--color-accent)] mt-0.5">›</span>
-                    <span>{improvement}</span>
-                  </li>
-                ))}
-              </ul>
+        <section aria-labelledby="cta" className="grid gap-6 border-t border-line pt-12 md:grid-cols-12 md:gap-8">
+          <p className="type-label text-subtle md:col-span-3 md:pt-2">Next step</p>
+          <div className="flex flex-col gap-6 md:col-span-9">
+            <h2 id="cta" className="type-title">
+              Need something like this?
+            </h2>
+            <div>
+              <Button href={whatsappHref} external data-track="whatsapp_click" data-track-location="case_study">
+                <MessageCircle className="h-4 w-4" aria-hidden="true" /> Chat on WhatsApp
+              </Button>
             </div>
           </div>
-        </aside>
+        </section>
       </div>
     </article>
   );

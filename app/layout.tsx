@@ -1,31 +1,58 @@
-import type { Metadata } from "next";
-import { Inter, Roboto_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import PageContainer from "@/components/layout/PageContainer";
+import ClickTracker from "@/components/analytics/ClickTracker";
 import { profile } from "@/data/profile";
-import { ThemeProvider } from "@/components/providers/ThemeProvider";
 
-const inter = Inter({
-  variable: "--font-inter",
+const serif = Instrument_Serif({
+  variable: "--font-instrument-serif",
+  subsets: ["latin"],
+  weight: "400",
+  display: "swap",
+});
+
+const sans = Geist({
+  variable: "--font-geist",
   subsets: ["latin"],
   display: "swap",
 });
 
-const robotoMono = Roboto_Mono({
-  variable: "--font-roboto-mono",
+const mono = Geist_Mono({
+  variable: "--font-geist-mono",
   subsets: ["latin"],
   display: "swap",
 });
+
+const siteTitle = `${profile.name} — ${profile.role}`;
 
 export const metadata: Metadata = {
-  title: `${profile.name} — ${profile.headline.split(" ")[0]} Engineer`,
-  description: profile.subheadline,
+  metadataBase: new URL(profile.siteUrl),
+  title: {
+    default: siteTitle,
+    template: `%s | ${profile.name}`,
+  },
+  description: profile.positioning,
   openGraph: {
-    title: profile.name,
-    description: profile.subheadline,
+    title: siteTitle,
+    description: profile.positioning,
+    url: "/",
+    siteName: profile.name,
     type: "website",
-    images: ["/IMG_9498.jpg"], // Added static OG image
-  }
+    locale: "en_US",
+    images: [profile.ogImage],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteTitle,
+    description: profile.positioning,
+    images: [profile.ogImage.url],
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#0e0d0b",
+  colorScheme: "dark",
 };
 
 export default function RootLayout({
@@ -37,33 +64,27 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "Person",
     "name": profile.name,
-    "jobTitle": "Software Engineer",
-    "url": "https://portofolio-danny.vercel.app",
-    "sameAs": [
-      profile.github,
-      profile.linkedin
-    ],
-    "description": profile.subheadline,
+    "jobTitle": profile.role,
+    "url": profile.siteUrl,
+    "sameAs": [profile.github, profile.linkedin],
+    "description": profile.positioning,
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Bandung",
       "addressRegion": "West Java",
-      "addressCountry": "Indonesia"
-    }
+      "addressCountry": "Indonesia",
+    },
   };
 
   return (
-    <html lang="en" className={`${inter.variable} ${robotoMono.variable} scroll-smooth`} suppressHydrationWarning>
-      <body className="antialiased">
+    <html lang="en" className={`${serif.variable} ${sans.variable} ${mono.variable}`}>
+      <body>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <ThemeProvider>
-          <PageContainer>
-            {children}
-          </PageContainer>
-        </ThemeProvider>
+        <PageContainer>{children}</PageContainer>
+        <ClickTracker />
       </body>
     </html>
   );

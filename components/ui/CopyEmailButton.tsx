@@ -1,13 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Check, Copy, Mail } from "lucide-react";
+import { Check, Copy } from "lucide-react";
 
-interface CopyEmailButtonProps {
-  email: string;
-}
-
-export function CopyEmailButton({ email }: CopyEmailButtonProps) {
+export function CopyEmailButton({ email }: { email: string }) {
   const [copied, setCopied] = useState(false);
 
   const copyToClipboard = async () => {
@@ -15,32 +11,30 @@ export function CopyEmailButton({ email }: CopyEmailButtonProps) {
       await navigator.clipboard.writeText(email);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      console.error("Failed to copy!", err);
+    } catch {
+      // Clipboard can be blocked (permissions, insecure context); the mailto link still works.
     }
   };
 
   return (
-    <div className="flex flex-col sm:flex-row items-center gap-4">
-      <a 
-        href={`mailto:${email}`} 
-        className="inline-flex items-center gap-2 bg-[var(--color-accent)] text-white px-8 py-4 rounded-md font-semibold hover:bg-blue-600 transition-colors"
+    <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+      <a
+        href={`mailto:${email}`}
+        data-track="email_click"
+        data-track-location="final_cta"
+        className="inline-flex min-h-11 items-center rounded-[var(--radius-control)] border border-line-strong px-5 text-[0.9375rem] font-medium text-fg transition-colors duration-200 hover:bg-surface-2"
       >
-        <Mail className="h-5 w-5" /> Send an Email
+        {email}
       </a>
       <button
+        type="button"
+        data-track="email_copy"
+        data-track-location="final_cta"
         onClick={copyToClipboard}
-        className="inline-flex items-center gap-2 bg-[var(--color-surface)] border border-[var(--color-border)] text-[var(--color-foreground)] px-6 py-4 rounded-md font-medium hover:bg-[var(--color-accent-subtle)] transition-colors min-w-[160px] justify-center"
+        className="inline-flex min-h-11 items-center gap-2 px-2 text-[0.9375rem] text-muted transition-colors hover:text-fg"
       >
-        {copied ? (
-          <>
-            <Check className="h-4 w-4 text-green-500" /> Copied!
-          </>
-        ) : (
-          <>
-            <Copy className="h-4 w-4" /> Copy Email
-          </>
-        )}
+        {copied ? <Check className="h-4 w-4" aria-hidden="true" /> : <Copy className="h-4 w-4" aria-hidden="true" />}
+        <span aria-live="polite">{copied ? "Copied" : "Copy email"}</span>
       </button>
     </div>
   );

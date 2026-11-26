@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-label="Payments and payouts">
+<rect width="1600" height="900" fill="#0f0e0c"/>
+<text x="110" y="110" fill="#9c958a" font-size="22" letter-spacing="3" font-family="ui-monospace, monospace">PAYMENTS AND PAYOUTS</text>
+<g>
+  <rect x="110" y="342" width="380" height="120" rx="14" fill="#191815" stroke="#3a3731" stroke-width="2"/>
+  <text x="138" y="396" fill="#ece6da" font-size="30" font-family="ui-sans-serif, system-ui, sans-serif">In-app purchases</text>
+  <text x="138" y="432" fill="#9c958a" font-size="20" font-family="ui-monospace, monospace">mobile stores</text>
+</g><path d="M490 402 C 550 402, 550 480, 610 480" fill="none" stroke="#3a3731" stroke-width="2"/>
+<circle cx="610" cy="480" r="5" fill="#ff5b1f"/><g>
+  <rect x="110" y="498" width="380" height="120" rx="14" fill="#191815" stroke="#3a3731" stroke-width="2"/>
+  <text x="138" y="552" fill="#ece6da" font-size="30" font-family="ui-sans-serif, system-ui, sans-serif">Subscriptions</text>
+  <text x="138" y="588" fill="#9c958a" font-size="20" font-family="ui-monospace, monospace">renewals</text>
+</g><path d="M490 558 C 550 558, 550 480, 610 480" fill="none" stroke="#3a3731" stroke-width="2"/>
+<circle cx="610" cy="480" r="5" fill="#ff5b1f"/><g>
+  <rect x="610" y="400" width="380" height="160" rx="14" fill="#191815" stroke="#ff5b1f" stroke-width="2"/>
+  <text x="638" y="474" fill="#ece6da" font-size="30" font-family="ui-sans-serif, system-ui, sans-serif">Payments backend</text>
+  <text x="638" y="510" fill="#9c958a" font-size="20" font-family="ui-monospace, monospace">events + payouts</text>
+</g><path d="M990 480 C 1050 480, 1050 480, 1110 480" fill="none" stroke="#3a3731" stroke-width="2"/>
+<circle cx="1110" cy="480" r="5" fill="#ff5b1f"/><g>
+  <rect x="1110" y="420" width="380" height="120" rx="14" fill="#191815" stroke="#3a3731" stroke-width="2"/>
+  <text x="1138" y="474" fill="#ece6da" font-size="30" font-family="ui-sans-serif, system-ui, sans-serif">Payouts + analytics</text>
+  <text x="1138" y="510" fill="#9c958a" font-size="20" font-family="ui-monospace, monospace">Wise API, BigQuery</text>
+</g><text x="1490" y="840" text-anchor="end" fill="#9c958a" font-size="18" font-family="ui-monospace, monospace">DIAGRAM</text>
+</svg>
